@@ -1,0 +1,6 @@
+{% include "base.html" %}
+
+</body>
+
+{% include "footer.html" %}
+
