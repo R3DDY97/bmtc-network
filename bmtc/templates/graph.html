@@ -1,0 +1,22 @@
+{% include "base.html" %}
+
+</body>
+
+<div class="container">
+    
+    
+    <h2>Flask Web Form</h2>
+    <form  action="" method="post" role="form">
+	{{ form.csrf }}
+	<div class="form-group">
+	    <label for="origin">Origin:</label>
+	    <input type="text" class="form-control" id="origin" name="origin" placeholder="Enter origin bust stop">
+	    <label for="destination">Desination:</label>
+	    <input type="text" class="form-control" id="destination" name="destination" placeholder="Enter Destination stop">
+	</div>
+	<button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    
+
+{% include "footer.html" %}
+
