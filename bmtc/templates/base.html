@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+	<link rel="stylesheet" href="../static/style.css">
 
-</head>
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+	<script src="../static/auto_complete.js"></script>
+    </head>
 
 
 <body>
@@ -54,28 +57,9 @@
 </div>
 
 
-
-
 <div id="container">
 
     {% block body %}
     {% endblock %}
-
 </div>
-
 </body>
-
-<footer class="footer">
-    <div class="container">
-	<div class="content has-text-centered">
-	    <p>
-		<strong>BMTC-Graph</strong>
-		<span class="icon is-large"><i class="fas fa-bus" aria-hidden="true"></i></span>
-		The source code is licensed
-		<a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
-		is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>.
-	    </p>
-	</div>
-    </div>
-</footer>
-</html>
