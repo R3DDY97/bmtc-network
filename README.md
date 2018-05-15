@@ -17,7 +17,7 @@ The map was generated using **qgis** software utilising OpenStreetMaps and Leafl
 
 
 ## Usage
-```python
+```bash
 $ git clone https://github.com/R3DDY97/bmtc-network
 $ cd bmtc-network
 $ pip3 install -r requirements.txt
