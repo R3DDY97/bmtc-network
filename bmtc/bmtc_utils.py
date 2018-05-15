@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+from collections import defaultdict
 
 
 class TripPlanner:
@@ -10,11 +11,14 @@ class TripPlanner:
 
     def trip_details(self):
 
-        self.route_bstops = load_json("data/route_bstops.json")
-        self.bstop_routes = load_json("data/bstop_routes.json")
+        self.route_bstops = load_json("data/new_route_bstops.json")
+        self.bstop_routes = load_json("data/new_bstop_routes.json")
+        try:
 
-        self.origin_routes, self.dest_routes = self.bstop_routes[
-            self.origin], self.bstop_routes[self.destination]
+            self.origin_routes, self.dest_routes = self.bstop_routes[
+                self.origin], self.bstop_routes[self.destination]
+        except KeyError as err:
+            return None, str(err)
 
         self.comn_routes, self.origin_uncomn_routes = [], []
 
@@ -36,10 +40,10 @@ class TripPlanner:
                     diff = abs(origin_index - dest_index)
                     btwn_stops = self.route_bstops[croute][origin_index:
                                                            dest_index] or self.route_bstops[croute][dest_index:origin_index+1][::-1]
-                    direct_result_list.append([diff, croute, btwn_stops])
+                    direct_result_list.append([croute, diff, btwn_stops])
                 except ValueError:
                     pass
-            return sorted(direct_result_list)
+            return {"direct": sorted(direct_result_list)}
         else:
             return sorted(self.indirect_trip(), key=lambda item: item[1])
 
