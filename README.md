@@ -17,7 +17,7 @@ The map was generated using **qgis** software utilising OpenStreetMaps and Leafl
 
 
 ## Usage
-``python
+```python
 $ git clone https://github.com/R3DDY97/bmtc-network
 $ cd bmtc-network
 $ pip3 install -r requirements.txt
@@ -34,7 +34,7 @@ $ flask run
    Use a production WSGI server instead.
  * Debug mode: off
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-``
+```
 ![BMTC-Search Result](https://raw.githubusercontent.com/R3DDY97/bmtc-network/master/pics/2018-05-16-024953_1366x768_scrot.png)
 
 
