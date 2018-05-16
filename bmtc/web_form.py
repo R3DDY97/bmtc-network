@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 
-from wtforms import (Form, StringField, SubmitField, validators)
+from wtforms import (Form, StringField, SubmitField)
 
 
 class SearchForm(Form):
     origin = StringField('origin')
     destination = StringField('destination')
+    submit = SubmitField('submit')
+
+
+class RouteForm(Form):
+    route = StringField('route')
     submit = SubmitField('submit')

@@ -1,0 +1,33 @@
+{% include "base.html" %}
+{% block body %}
+
+<form method="POST"  autocomplete="off"  id="autocomplete">
+    <div class="autocomplete" style="width:500px;">
+	<input name="route"  id="route" placeholder="Select bus route no">
+	<input type="submit" value="Search">
+    </div>
+</form>  
+
+<section class="section">
+    <div class="container">
+	<table border="1" class="dataframe">
+	    <caption><b> {{ caption }} </b></caption></br>
+		{% for item in items %}
+		<tr>
+		    <td>{{ item[0] }}</td>
+		    <td>{{ item[1] }}</td>
+		</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+    </div>
+</section>
+
+<script>
+ autocomplete(document.getElementById("route"), routes);
+</script>
+
+
+{% endblock %}
+
+</html>

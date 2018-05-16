@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import json
-from collections import defaultdict
 
 
 class TripPlanner:
@@ -31,21 +30,23 @@ class TripPlanner:
             r for r in self.dest_routes if r not in self.comn_routes]
 
         if self.comn_routes:
-            direct_result_list = []
+            direct_list = []
             for croute in self.comn_routes:
                 try:
-                    origin_index = self.route_bstops[croute].index(self.origin)
-                    dest_index = self.route_bstops[croute].index(
-                        self.destination)
+                    cr_stops = self.route_bstops[croute]
+                    origin_index = cr_stops.index(self.origin)
+                    dest_index = cr_stops.index(self.destination)
                     diff = abs(origin_index - dest_index)
-                    btwn_stops = self.route_bstops[croute][origin_index:
-                                                           dest_index] or self.route_bstops[croute][dest_index:origin_index+1][::-1]
-                    direct_result_list.append([croute, diff, btwn_stops])
+                    if origin_index < dest_index:
+                        btwn_stops = cr_stops[origin_index:dest_index]
+                    else:
+                        btwn_stops = cr_stops[dest_index:origin_index+1][::-1]
+                    direct_list.append([croute, diff, btwn_stops])
                 except ValueError:
                     pass
-            return {"direct": sorted(direct_result_list)}
+            return {"direct": sorted(direct_list, key=lambda item: item[1])}
         else:
-            return sorted(self.indirect_trip(), key=lambda item: item[1])
+            return sorted(self.indirect_trip(), key=lambda item: item[-1])
 
     def indirect_trip(self):
         indirect_routes = []
@@ -59,8 +60,28 @@ class TripPlanner:
         for bstop in self.route_bstops[route]:
             for iroute in self.bstop_routes[bstop]:
                 if self.destination in self.route_bstops[iroute]:
-                    return route, bstop, iroute
+                    ucr_stops = self.route_bstops[route]
+                    midr_stops = self.route_bstops[iroute]
+
+                    origin_index = ucr_stops.index(self.origin)
+                    midstop_index1 = ucr_stops.index(bstop)
+                    midstop_index2 = midr_stops.index(bstop)
+                    dest_index = midr_stops.index(self.destination)
+                    diff1 = abs(origin_index - midstop_index1)
+                    diff2 = abs(midstop_index2 - dest_index)
+                    return route, diff1, bstop, diff2, iroute, diff1+diff2
         return None
+
+
+def broute_info(route_no):
+    with open("./data/new_route_bstops.json", "r") as rs:
+        route_bstops = json.load(rs)
+    broute_details = route_bstops.get(route_no, None)
+    if broute_details:
+        broute_details = [(num, stop)
+                          for num, stop in enumerate(broute_details, 1)]
+        return broute_details
+    return None
 
 
 def load_json(json_file):

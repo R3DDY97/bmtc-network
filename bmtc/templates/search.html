@@ -2,22 +2,22 @@
 {% block body %}
 
 
-	<form method="POST"  autocomplete="off"  id="autocomplete">
-	    <div class="autocomplete" style="width:500px;">
-		<!-- <label for="origin">origin </label> -->
-	    <input name="origin" id="origin" id="autocomplete" placeholder="Orgin Bus stop">
-	    <!-- <label for="destination">destination</label> -->
-	    <input name="destination" id="destination" id="autocomplete" placeholder="Destination stop">
-	    <input type="submit" value="Search">
-	    </div>
-	</form>  
+<form method="POST"  autocomplete="off"  id="autocomplete">
+    <div class="autocomplete" style="width:500px;">
+	<!-- <label for="origin">origin </label> -->
+	<input name="origin" id="origin" id="autocomplete" placeholder="Orgin Bus stop">
+	<!-- <label for="destination">destination</label> -->
+	<input name="destination" id="destination" id="autocomplete" placeholder="Destination stop">
+	<input type="submit" value="Search">
+    </div>
+</form>  
 
 {{ error }}
 <section class="section">
     <div class="container">
-	<table style= "width:100%";  border:"1px solid black"; border-collapse:"collapse"; padding:"15px"; align:"center";>
-	    <caption><b>Trip Details from {{ origin }} to {{ destination }}</b></caption>
-	    <thead>
+	<table border="1" class="dataframe">
+	    <caption><b>{{ caption }}</b></caption></br>
+	    <thead style="text-align: right;">
 		{% for hdr in header %}
 		<th>{{hdr}}</th>
 		{% endfor %}
@@ -29,8 +29,7 @@
 		    <td>{{ item[0] }}</td>
 		    <td>{{ item[1] }}</td>
 		    <td>{{ item[2]| join(", ") }}</td>
-		    <!-- <td><a href="{{item.magnet_url}}" download><i class="fa fa-download"></i></td>
-			 <td><a href="{{item.torrent_url}}" download><i class="fa fa-download"></i></td> -->
+
 		</tr>
 		{% endfor %}
 	    </tbody>
@@ -39,11 +38,10 @@
 </section>
 
 <script>
-
-    autocomplete(document.getElementById("origin"), bstops);
-    autocomplete(document.getElementById("destination"), bstops);
+ autocomplete(document.getElementById("origin"), bstops);
+ autocomplete(document.getElementById("destination"), bstops);
 </script>
-    
+
 {% endblock %}
 
 
