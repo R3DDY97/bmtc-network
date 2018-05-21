@@ -1,0 +1,38 @@
+{% include "base.html" %}
+{% block body %}
+
+<form method="POST"  autocomplete="off"  id="autocomplete">
+    <div class="autocomplete" style="width:500px;">
+	<input name="kia_route"  id="kia_route" placeholder="Select KIA bus route ">
+	<input type="submit" value="Search">
+    </div>
+</form>  
+
+<section class="section">
+    <div class="container">
+	<table border="1" id="bmtc" class="dataframe">
+	    <b> {{ caption }} </b></br>
+	    <thead style="text-align: right;">
+		{% for hdr in header %}
+		<th>{{hdr}}</th>
+		{% endfor %}
+	    </thead>
+		{% for item in items %}
+		<tr>
+		    <td>{{ item[0] }}</td>
+		    <td>{{ item[1] }}</td>
+		</tr>
+		{% endfor %}
+	    </tbody>
+	</table>
+    </div>
+</section>
+
+<script>
+ autocomplete(document.getElementById("kia_route"), kia_routes);
+</script>
+
+
+{% endblock %}
+
+</html>
