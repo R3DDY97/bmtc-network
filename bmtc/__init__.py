@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from flask import (Flask, render_template, request)
-# from webbrowser import open_new_tab
-from .web_form import SearchForm, RouteForm
-from .bmtc_utils import TripPlanner, broute_info
+from .bmtc_utils import (TripPlanner, broute_info,
+                         bstop_info, kia_route_info, kia_stop_info)
+from .web_form import (SearchForm, RouteForm,
+                       BstopForm, KstopForm, KrouteForm)
 
 app = Flask(__name__)
 
@@ -24,14 +25,14 @@ def search():
         trip_details = trip.trip_details()
 
         if None in trip_details:
-            error = "ERR0R Couldnt find the bus stop {}".format(
+            error = "ERR0R Couldnt find the bus stop {}\n".format(
                 trip_details[1])
             return render_template("search.html", error=error)
 
         direct_header = ["Bus", "stops", "Bus stops in between"]
         indirect__header = ["Bus No", "stops",
                             "Get Down Here", "stops", "Second Bus", "total"]
-        caption = "Trip Details from {} to {}".format(origin, destination)
+        caption = "Trip Details from {} to {}\n".format(origin, destination)
         if "direct" in trip_details:
             trip_details = trip_details["direct"]
             return render_template("search.html", caption=caption,
@@ -47,30 +48,61 @@ def route_info():
     if request.method == 'POST' and form.validate():
         route_no = request.form["route"].strip()
         print(route_no)
+        hdr = ["sl", "Bus Stops"]
         route_details = broute_info(route_no)
         if route_details:
-            caption = "{} Bus stops for the route {}".format(
+            caption = "{} Bus stops for the route {}\n".format(
                 len(route_details), route_no)
-            return render_template("route.html", items=route_details, caption=caption)
+            return render_template("route.html", header=hdr, items=route_details, caption=caption)
     return render_template("route.html", form=form)
 
 
 @app.route("/bmtc_map")
 def bmtc_map():
-    try:
-        # open_new_tab("./templates/qgis2web/index.html")
-        return render_template("map.html")
-    except:
-        print("not opened map")
-
-    return render_template("index.html")
+    return render_template("map.html")
 
 
-@app.route("/network")
-def network():
-    return render_template("index.html")
+@app.route("/kia_stop", methods=["GET", "POST"])
+def kia_stop():
+    form = KstopForm()
+    if request.method == 'POST' and form.validate():
+        kia_stop = request.form["kia_stop"].strip()
+        print(kia_stop)
+        details = kia_stop_info(kia_stop)
+        if details:
+            hdr = ["sl", "Bus Stops"]
+            caption = "{} KIA routes for the bus stop {}\n".format(
+                len(details), kia_stop)
+            return render_template("kia_stop.html", header=hdr, items=details, caption=caption)
+    return render_template("kia_stop.html", form=form)
 
 
-@app.route("/stats")
-def stats():
-    return render_template("index.html")
+@app.route("/bstop", methods=["GET", "POST"])
+def bstop():
+    form = BstopForm()
+    if request.method == 'POST' and form.validate():
+        bstop = request.form["bstop"].strip()
+        print(bstop)
+        details = bstop_info(bstop)
+        if details:
+            hdr = ["sl", "Bus Routes"]
+            caption = "{} routes available  for the bus stop {}\n".format(
+                len(details), bstop)
+            return render_template("bstop.html", header=hdr, items=details, caption=caption)
+    return render_template("bstop.html", form=form)
+
+
+@app.route("/kia_route", methods=["GET", "POST"])
+def kia_route():
+    form = KrouteForm()
+
+    if request.method == 'POST' and form.validate():
+        kia_route = request.form["kia_route"].strip()
+        print(kia_route)
+        details = kia_route_info(kia_route)
+        if details:
+            hdr = ["sl", "Bus Stops"]
+            caption = "{} Bus stops for the KIA route {}\n".format(
+                len(details), kia_route)
+            return render_template("kia_route.html", header=hdr, items=details, caption=caption)
+    return render_template("kia_route.html", form=form)

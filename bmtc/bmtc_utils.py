@@ -12,6 +12,9 @@ class TripPlanner:
 
         self.route_bstops = load_json("data/new_route_bstops.json")
         self.bstop_routes = load_json("data/new_bstop_routes.json")
+        # self.route_bstops = load_json("data/api_route_stops.json")
+        # self.bstop_routes = load_json("data/api_bstop_routes.json")
+
         try:
 
             self.origin_routes, self.dest_routes = self.bstop_routes[
@@ -60,27 +63,39 @@ class TripPlanner:
         for bstop in self.route_bstops[route]:
             for iroute in self.bstop_routes[bstop]:
                 if self.destination in self.route_bstops[iroute]:
-                    ucr_stops = self.route_bstops[route]
-                    midr_stops = self.route_bstops[iroute]
+                    try:
 
-                    origin_index = ucr_stops.index(self.origin)
-                    midstop_index1 = ucr_stops.index(bstop)
-                    midstop_index2 = midr_stops.index(bstop)
-                    dest_index = midr_stops.index(self.destination)
-                    diff1 = abs(origin_index - midstop_index1)
-                    diff2 = abs(midstop_index2 - dest_index)
-                    return route, diff1, bstop, diff2, iroute, diff1+diff2
+                        ucr_stops = self.route_bstops[route]
+                        midr_stops = self.route_bstops[iroute]
+
+                        origin_index = ucr_stops.index(self.origin)
+                        midstop_index1 = ucr_stops.index(bstop)
+                        midstop_index2 = midr_stops.index(bstop)
+                        dest_index = midr_stops.index(self.destination)
+                        diff1 = abs(origin_index - midstop_index1)
+                        diff2 = abs(midstop_index2 - dest_index)
+                        return route, diff1, bstop, diff2, iroute, diff1+diff2
+                    except ValueError:
+                        pass
         return None
 
 
-def broute_info(route_no):
-    with open("./data/new_route_bstops.json", "r") as rs:
-        route_bstops = json.load(rs)
-    broute_details = route_bstops.get(route_no, None)
-    if broute_details:
-        broute_details = [(num, stop)
-                          for num, stop in enumerate(broute_details, 1)]
-        return broute_details
+def broute_info(route_no=None, bstop=None):
+    route_bstops = load_json("data/new_route_bstops.json")
+    if route_no:
+        details = route_bstops.get(route_no, None)
+    if details:
+        details = [(num, i) for num, i in enumerate(details, 1)]
+        return details
+
+
+def bstop_info(bstop):
+    bstop_routes = load_json("data/new_bstop_routes.json")
+    if bstop:
+        details = bstop_routes.get(bstop, None)
+    if details:
+        details = [(num, i) for num, i in enumerate(details, 1)]
+        return details
     return None
 
 
@@ -88,3 +103,25 @@ def load_json(json_file):
     with open(json_file, "r+") as rfile:
         py_obj = json.load(rfile)
     return py_obj
+
+
+def kia_route_info(kia_route):
+    kroute_stops = load_json("data/kia_route_stops.json")
+    if kia_route:
+        details = kroute_stops.get(kia_route, None)
+
+    if details:
+        details = [(num, i) for num, i in enumerate(details, 1)]
+        return details
+    return None
+
+
+def kia_stop_info(kia_stop):
+    kstop_routes = load_json("data/kia_stop_routes.json")
+    if kia_stop:
+        details = kstop_routes.get(kia_stop, None)
+
+    if details:
+        details = [(num, i) for num, i in enumerate(details, 1)]
+        return details
+    return None
