@@ -9,12 +9,12 @@ from .web_form import (SearchForm, RouteForm,
 app = Flask(__name__)
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+# @app.route("/")
+# def index():
+#     return render_template("index.html")
 
 
-@app.route("/search", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def search():
     form = SearchForm()
     if request.method == 'POST' and form.validate():
