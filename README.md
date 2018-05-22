@@ -3,7 +3,7 @@ Explores the Bangalore bus transport Network and provides features
 to find out the bus routes  available between two bust stops
 
 
-![BMTC-Netowork Map](https://raw.githubusercontent.com/R3DDY97/bmtc-network/master/pics/Screenshot-2018-5-23 SvAeYnMkAy.png)
+![BMTC-Netowork Map](https://raw.githubusercontent.com/R3DDY97/bmtc-network/master/pics/Screenshot-2018-5-23_bmtc_qgs.png)
 
 
 ## Requirements
@@ -37,7 +37,7 @@ $ flask run
  * Debug mode: off
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
-![BMTC-Search Result](https://raw.githubusercontent.com/R3DDY97/bmtc-network/master/pics/2018-05-16-024953_1366x768_scrot.png)
+![BMTC-Search Result](https://raw.githubusercontent.com/R3DDY97/bmtc-network/master/pics/Screenshot-2018-5-23_SvAeYnMkAy.png)
 
 
 Open browser url `http://127.0.0.1:5000`
