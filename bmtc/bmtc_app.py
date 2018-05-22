@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 from flask import (Flask, render_template, request)
-from .bmtc_utils import (TripPlanner, broute_info,
-                         bstop_info, kia_route_info, kia_stop_info)
-from .web_form import (SearchForm, RouteForm,
-                       BstopForm, KstopForm, KrouteForm)
+from bmtc_utils import (TripPlanner, broute_info,
+                        bstop_info, kia_route_info, kia_stop_info)
+from web_form import (SearchForm, RouteForm,
+                      BstopForm, KstopForm, KrouteForm)
 
 app = Flask(__name__)
 
@@ -106,3 +106,7 @@ def kia_route():
                 len(details), kia_route)
             return render_template("kia_route.html", header=hdr, items=details, caption=caption)
     return render_template("kia_route.html", form=form)
+
+
+if __name__ == '__main__':
+    app.run()
