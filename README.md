@@ -3,7 +3,7 @@ Explores the Bangalore bus transport Network and provides features
 to find out the bus routes  available between two bust stops
 
 
-![BMTC-Netowork Map](https://raw.githubusercontent.com/R3DDY97/bmtc-network/master/pics/2018-05-15-002804_1366x768_scrot.png)
+![BMTC-Netowork Map](https://raw.githubusercontent.com/R3DDY97/bmtc-network/master/pics/Screenshot-2018-5-23\ SvAeYnMkAy.png)
 
 
 ## Requirements
@@ -17,6 +17,8 @@ The map was generated using **qgis** software utilising OpenStreetMaps and Leafl
 
 
 ## Usage
+
+
 ```bash
 $ git clone https://github.com/R3DDY97/bmtc-network
 $ cd bmtc-network
@@ -39,6 +41,9 @@ $ flask run
 
 
 Open browser url `http://127.0.0.1:5000`
+
+
+The data may not be accurate but, has been validated. Please use it without warranty of any kind.
 
 ### TO Do
 * Make map for every search result
