@@ -41,7 +41,9 @@ The data may not be accurate but, has been validated. Please use it without warr
 
 ### TO Do
 * Make map for every search result
-* ~~Add AIRPORT Vayu Vajra support~~
+
+*~~Add AIRPORT Vayu Vajra support~~
+
 *~~Deploy~~
 
 
